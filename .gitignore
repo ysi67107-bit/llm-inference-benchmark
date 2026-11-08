@@ -1,6 +1,22 @@
-.venv/
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+.venv/
 .env
+
+# macOS
 .DS_Store
+
+# Editor
+.vscode/
+
+# Raw benchmark results
+results/**/*.csv
 results/*.csv
+
+# Keep figures for README
+# results/figures/*.png will be tracked
+
+# Temporary files
+*.log
+
