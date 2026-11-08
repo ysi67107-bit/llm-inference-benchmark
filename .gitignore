@@ -1,8 +1,13 @@
+
 # Python
 __pycache__/
 *.py[cod]
+.pytest_cache/
 .venv/
+venv/
 .env
+.env.*
+!.env.example
 
 # macOS
 .DS_Store
@@ -19,4 +24,10 @@ results/*.csv
 
 # Temporary files
 *.log
+*.tmp
+
+# Model weights
+*.gguf
+*.safetensors
+
 

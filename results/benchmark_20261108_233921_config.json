@@ -1,0 +1,17 @@
+{
+  "timestamp": "20261108_233921",
+  "backend": "ollama",
+  "model": "qwen2.5:3b",
+  "concurrency": 2,
+  "requests": 10,
+  "max_tokens": 32,
+  "duration_seconds": 4.232019749935716,
+  "successful_requests": 10,
+  "failed_requests": 0,
+  "mean_latency_seconds": 0.8426054999697954,
+  "p50_latency_seconds": 0.8266453749965876,
+  "p95_latency_seconds": 0.9212188732111827,
+  "p99_latency_seconds": 0.9266553083853796,
+  "request_throughput": 2.3629379329224296,
+  "output_throughput": 75.61401385351775
+}

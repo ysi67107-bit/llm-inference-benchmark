@@ -1,0 +1,73 @@
+{
+  "model": "qwen2.5:3b",
+  "prompt": "Explain the difference between prefill and decode in large language model inference.",
+  "max_tokens": 128,
+  "warmup_requests": 1,
+  "measurements": [
+    {
+      "model": "qwen2.5:3b",
+      "client_latency_ms": 1972.8413340635598,
+      "server_total_ms": 1959.41575,
+      "load_ms": 0.637375,
+      "prompt_tokens": 44,
+      "output_tokens": 128,
+      "prefill_ms": 15.185,
+      "decode_ms": 1938.338,
+      "prefill_tokens_per_s": 2897.596312150148,
+      "decode_tokens_per_s": 66.03595451360908,
+      "done_reason": "length"
+    },
+    {
+      "model": "qwen2.5:3b",
+      "client_latency_ms": 1893.9377921633422,
+      "server_total_ms": 1889.630667,
+      "load_ms": 1.525625,
+      "prompt_tokens": 44,
+      "output_tokens": 128,
+      "prefill_ms": 15.697,
+      "decode_ms": 1867.956,
+      "prefill_tokens_per_s": 2803.083391730904,
+      "decode_tokens_per_s": 68.52409799802565,
+      "done_reason": "length"
+    },
+    {
+      "model": "qwen2.5:3b",
+      "client_latency_ms": 1915.5296250246465,
+      "server_total_ms": 1909.878959,
+      "load_ms": 0.594084,
+      "prompt_tokens": 44,
+      "output_tokens": 128,
+      "prefill_ms": 16.699,
+      "decode_ms": 1891.075,
+      "prefill_tokens_per_s": 2634.8883166656683,
+      "decode_tokens_per_s": 67.68636886427032,
+      "done_reason": "length"
+    },
+    {
+      "model": "qwen2.5:3b",
+      "client_latency_ms": 1908.9288329705596,
+      "server_total_ms": 1904.01025,
+      "load_ms": 0.665167,
+      "prompt_tokens": 44,
+      "output_tokens": 128,
+      "prefill_ms": 15.696,
+      "decode_ms": 1886.081,
+      "prefill_tokens_per_s": 2803.2619775739045,
+      "decode_tokens_per_s": 67.86559007805073,
+      "done_reason": "length"
+    },
+    {
+      "model": "qwen2.5:3b",
+      "client_latency_ms": 1895.6322502344847,
+      "server_total_ms": 1890.313417,
+      "load_ms": 0.632333,
+      "prompt_tokens": 44,
+      "output_tokens": 128,
+      "prefill_ms": 15.488,
+      "decode_ms": 1872.794,
+      "prefill_tokens_per_s": 2840.909090909091,
+      "decode_tokens_per_s": 68.34707928367989,
+      "done_reason": "length"
+    }
+  ]
+}

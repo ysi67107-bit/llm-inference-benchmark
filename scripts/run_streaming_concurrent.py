@@ -5,7 +5,7 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from statistics import mean, median
+from statistics import mean
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -136,11 +136,18 @@ def calculate_streaming_metrics(results, duration):
         "mean_latency": mean(latencies),
         "p95_latency": percentile(latencies, 0.95),
         "mean_ttft": mean(ttfts) if ttfts else None,
+        "p50_ttft": percentile(ttfts, 0.50),
         "p95_ttft": percentile(ttfts, 0.95),
+        "p99_ttft": percentile(ttfts, 0.99),
         "mean_tpot": mean(tpots) if tpots else None,
         "p95_tpot": percentile(tpots, 0.95),
         "mean_queue_wait": mean(
             r["queue_wait"] for r in successful
+        ),
+        "mean_time_to_first_output": (
+            mean(r["queue_wait"] + r["ttft"] for r in successful
+                 if r["ttft"] is not None)
+            if ttfts else None
         ),
         "mean_end_to_end_latency": mean(
             r["end_to_end_latency"] for r in successful
@@ -258,9 +265,27 @@ async def main():
                 )
 
                 print(
+                    "P50 TTFT: "
+                    + format_metric(
+                        metrics["p50_ttft"],
+                        multiplier=1000,
+                        suffix="ms"
+                    )
+                )
+
+                print(
                     "P95 TTFT: "
                     + format_metric(
                         metrics["p95_ttft"],
+                        multiplier=1000,
+                        suffix="ms"
+                    )
+                )
+
+                print(
+                    "P99 TTFT: "
+                    + format_metric(
+                        metrics["p99_ttft"],
                         multiplier=1000,
                         suffix="ms"
                     )
@@ -289,6 +314,15 @@ async def main():
                     + format_metric(
                         metrics["mean_queue_wait"],
                         suffix="s"
+                    )
+                )
+
+                print(
+                    "Mean Queue + TTFT: "
+                    + format_metric(
+                        metrics["mean_time_to_first_output"],
+                        multiplier=1000,
+                        suffix="ms"
                     )
                 )
 
@@ -325,6 +359,22 @@ async def main():
 
             filename = save_csv(results, concurrency)
             print(f"Saved: {filename}")
+
+            print("\n=== Per-Request TTFT ===")
+            for row in results:
+                if not row["success"]:
+                    print(f"R{row['request_id']:02d}: FAILED - {row.get('error')}")
+                    continue
+                ttft = row.get("ttft")
+                if ttft is None:
+                    print(f"R{row['request_id']:02d}: TTFT=N/A")
+                    continue
+                print(
+                    f"R{row['request_id']:02d}: "
+                    f"TTFT={ttft * 1000:.2f} ms, "
+                    f"Queue={row['queue_wait'] * 1000:.2f} ms, "
+                    f"Queue+TTFT={(row['queue_wait'] + ttft) * 1000:.2f} ms"
+                )
 
     finally:
         await client.close()
